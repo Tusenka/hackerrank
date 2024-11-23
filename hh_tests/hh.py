@@ -1,4 +1,5 @@
 #test hh.ru
+from asyncio import sleep
 import os
 import allure
 import pip
@@ -17,7 +18,6 @@ class TestBase():
    @allure.title("firefox driver")
    def browser(self):
       options = Options()
-      options.add_argument('--headless')
       driver=webdriver.Firefox(options=options)
       driver.maximize_window()
       yield driver
@@ -37,7 +37,8 @@ class TestBase():
       with allure.step(f"Given: I've go to vacancies search {BASE_URL} url"):
          browser.get(BASE_URL+"/search/vacancy")
       with allure.step("I've found remote job selector"):
-         remote_job_selector = WebDriverWait(browser,10).until(EC.presence_of_element_located((By.XPATH, "(//input[@type='checkbox' and @name='schedule' and @value='remote'])[1]")));
+         sleep(2)
+         remote_job_selector = WebDriverWait(browser,20).until(EC.presence_of_element_located((By.XPATH, "(//input[@type='checkbox' and @name='schedule' and @value='remote'])[1]")));
       with allure.step("I click on it"):
          browser.execute_script("arguments[0].click();", remote_job_selector)
          remote_job_selector.click()
