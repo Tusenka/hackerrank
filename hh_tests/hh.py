@@ -14,6 +14,7 @@ BASE_URL='https://hh.ru'
 
 class TestBase():
    @pytest.fixture
+   @allure.title("firefox driver")
    def browser(self):
       options = Options()
       options.add_argument('--headless')
@@ -21,24 +22,34 @@ class TestBase():
       driver.maximize_window()
       yield driver
       driver.close()
-        
+   
+   @allure.title("Test Search by remote job param")     
+   @allure.epic("Web interface")
    @allure.feature('check remote job checklist in vacancies search')
+   @allure.description("This is the demo test for unitcase woth  vacancies search. TBD: make search POD")
    @allure.story('vacancies search') 
-   @pytest.mark.tags("crirical_path", "login")   
+   @allure.tag("crirical_path", "login")  
+   @allure.severity(allure.severity_level.NORMAL)
+   @allure.link("https://hh.ru/search/vacancy", name="HH search")
+   @allure.issue("UI-123")
+   @allure.testcase("TMS-123") 
    def test_checklist_remote_work(self, browser: webdriver.Firefox):
       with allure.step(f"Given: I've go to vacancies search {BASE_URL} url"):
          browser.get(BASE_URL+"/search/vacancy")
       with allure.step("I've found remote job selector"):
-         remote_job_selector=browser.find_element(By.XPATH, "//input[@type='checkbox' and @name='schedule' and @value='remote']");
+         remote_job_selector = WebDriverWait(browser,10).until(EC.presence_of_element_located((By.XPATH, "(//input[@type='checkbox' and @name='schedule' and @value='remote'])[1]")));
       with allure.step("I click on it"):
+         browser.execute_script("arguments[0].click();", remote_job_selector)
          remote_job_selector.click()
       with allure.step("I am on a search vacancies page by, the url contains remote jobs query"):
          url = selenium.getLocation()
          assert url.index('schedule=remote')!=-1         
+        
          
    @allure.feature('check login pathway')      
-   @pytest.mark.tags("crirical_path", "login")   
+   @allure.tag("crirical_path", "login")   
    @allure.story('login') 
+   @allure.severity(allure.severity_level.CRITICAL)
    @pytest.mark.parametrize("name, password", [(os.getenv("USERNAME"), os.getenv("PASSWORD"))] )
    def test_success_login_by_password(self, browser: webdriver.Firefox , name, password):
       with allure.step("Given I am login page:"):
