@@ -29,7 +29,7 @@ class TestBase():
       with allure.step(f"Given: I've go to vacancies search {BASE_URL} url"):
          browser.get(BASE_URL+"/search/vacancy")
       with allure.step("I've found remote job selector"):
-         remote_job_selector=browser.find_element(By.XPATH, "//input[@type='checkbox' and @name='schedule' and value='remote']").find_element(By.XPATH, "./../../..");
+         remote_job_selector=browser.find_element(By.XPATH, "//input[@type='checkbox' and @name='schedule' and @value='remote']");
       with allure.step("I click on it"):
          remote_job_selector.click()
       with allure.step("I am on a search vacancies page by, the url contains remote jobs query"):
