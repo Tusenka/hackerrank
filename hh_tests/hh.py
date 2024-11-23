@@ -9,7 +9,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-
 BASE_URL='https://hh.ru'
 
 
@@ -23,14 +22,12 @@ class TestBase():
       driver.close()
         
    
-   @pytest.mark.tags("crirical_path", "login")   
-   def test_checklist_remote_work(self, browser):
-      browser.get(BASE_URL+'/search/vacancy')
+   @pytest.mark.tags("crirical_path", "login")   TBD
+   def test_checklist_remote_work(self, browser: webdriver.Firefox):
       with allure.step(f"Given: I've go to vacancies search {BASE_URL} url"):
-         browser.get(BASE_URL)
+         browser.get(BASE_URL+"/search/vacancy")
       with allure.step("I've found remote job selector"):
-         remote_job_selector=browser.find_element(By.cssSelector("input[type='checkbox'][name='login']"));
-         assert remote_job_selector is not None
+         remote_job_selector=browser.find_element(By.XPATH, "//input[@type='checkbox' and @name='schedule']").find_element(By.XPATH, "./../../..");
       with allure.step("I click on it"):
          remote_job_selector.click()
       with allure.step("I am on a search vacancies page by, the url contains remote jobs query"):
@@ -38,20 +35,24 @@ class TestBase():
          assert url.index('schedule=remote')!=-1         
          
          
-   @pytest.mark.tags("smoke", "login")
-   @pytest.mark.parametrize("name, password", [(os.getenv("username"), os.getenv("password"))] )
-   def test_success_login_by_password(self, browser, name, password):
+   @pytest.mark.tags("crirical_path", "login")   TBD
+   @pytest.mark.parametrize("name, password", [(os.getenv("USERNAME"), os.getenv("PASSWORD"))] )
+   def test_success_login_by_password(self, browser: webdriver.Firefox , name, password):
       with allure.step("Given I am login page:"):
          browser.get(BASE_URL+'/login')
       with allure.step("I click on enter by password:"):
-         browser.find_element(By.cssSelector("a[data-qa='expand-login-by-password']")).click()
+         browser.find_element(By.XPATH, "//a[@data-qa='expand-login-by-password']").click()
       with allure.step("I wait until password field"):
          password_field = WebDriverWait(browser, 10).until(
-         EC.presence_of_element_located(By.cssSelector("input[data-qa='login-input-password]")))
+         EC.visibility_of(
+            WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, "//a[@data-qa='login-input-password']")))
+            )
+         )
       with allure.step("I enter login data"):
-         name_field = browser.find_element(By.cssSelector("input[data-qa='login-input-password]"))
-         name_field.send_key(name)
+         name_field = browser.find_element(By.XPATH, "input[data-qa='login-input-password']")
+         print(name)
+         name_field.send_keys(name)
          password_field.send_keys(password)
-         browser.find_element(By.cssSelector("button[data-qa='account-login-submit']"))
+         browser.find_element(By.XPATH, "button[data-qa='account-login-submit']").click()
       with allure.step("And it cookies contains crypted id"):
-         assert browser.getCookieNamed('crypted_id')
+         assert browser.get_cookie('crypted_id')
