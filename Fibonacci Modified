@@ -6,9 +6,7 @@ def _build_fibo(t1:int, t2:int, n:int):
     if n<2:
         return _dp[n]
     _dp[2]=t1+t2**2
-    for i in range(n, -1, -1):
-        if i<2:
-            return _dp[i]
+    for i in range(n, 1, -1):
         _dp[0], _dp[1], _dp[2]=_dp[1], _dp[2], _dp[1]+_dp[2]*_dp[2]
     return _dp[0]
 
