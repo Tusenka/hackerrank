@@ -25,7 +25,7 @@ def cosmos(a:list, F:int, T:int):
                 else:
                     _dp[i+1][t][f]=_dp[i][t][f]
     _cache=_recovery_indexes(_dp, a=a, f=F, t=T)
-    return _dp[-1][-1][-1], _cache
+    return _dp[-1][-1][-1], _cache #max
 
 
 if __name__ == '__main__':
