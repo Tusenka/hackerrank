@@ -5,7 +5,7 @@ from sortedcontainers import SortedDict
 M = 10 ** 9
 _visited=set()
 _dp=[]
-_cache=[]
+_closables=[]
 def _build_mins(a: list, k: int):
     global _dp
     _dp=[[ -1 for _ in range(k+1) ] for _ in range(len(a))]
@@ -20,7 +20,7 @@ def _build_mins(a: list, k: int):
 
 
 def _build_cache(a: list, k: int):
-    global _cache
+    global _closables
     _cache=collections.defaultdict(set)
     for i, x in enumerate(a):
         _cache[x].add(i)
@@ -28,12 +28,12 @@ def _build_cache(a: list, k: int):
 
 def _visit(a, i):
     _visited.add(i)
-    _cache[a[i]].remove(i)
+    _closables[a[i]].remove(i)
 
 def _pop_min(i, j):
     global _visited
-    for x in _cache:
-        for ii in _cache[x]:
+    for x in _closables:
+        for ii in _closables[x]:
             if i<=ii<=j:
                 _visit(a, ii)
                 return ii

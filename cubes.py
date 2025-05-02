@@ -1,77 +1,71 @@
-import heapq
-import collections
+import sys
+from functools import cache
+
+M = 10 ** 9 + 7
+indexes={}
+def _build_cubes(n: int):
+    _cubes = {}
+    i = 1
+    while i * i * i <= n:
+        _cubes[i * i * i] = i
+        i += 1
+    return _cubes
 
 
-
-def _get_cube_length(a: list):
-    _cache={}
-    _max_range=0
-    _last=a[0]
-    _c=0
-    for x in a:
-        if _last==x:
-            _c+=1
-        elif x is None:
-            continue
-        else:
-            _c=0
-            _last=x
-        if _max_range<_c:
-            _max_range=_c
-    return _max_range
-
-def _del(a, i):
-    return a[0:i]+a[i+1:]
+def _add_index(indexes: dict, i: int, count: int = 1):
+    if i in indexes:
+        indexes[i] += count
+    else:
+        indexes[i] = count
 
 
-def _check_cache(_cache: list, imax: int, k):
-    _sum=0
-    for i, v in enumerate(_cache):
-        if i==imax:
-           continue
-        _sum+=v
-        if _sum>k:
+def _remove_index(indexes: dict, i, count: int = 1):
+    indexes[i] -= count
+    if indexes[i] == 0:
+        indexes.pop(i)
+
+@cache
+def _try_cubes(i: int, n: int):
+    global indexes
+    if indexes is None:
+        indexes = {}
+    if sum(indexes.values()) > 8:
             return False
-    return True
+    if sum(indexes.values()) == 8:
+        return n == 0
+    if n == 0:
+        return True
+    if n < 0:
+        return False
+    if i == 0:
+        return False
+    sum(indexes.values())
+    x = i * i * i
+    k = min(8 - sum(indexes.values()), n // x)
+    _add_index(indexes, i, k)
+    result = _try_cubes(i - 1, n - x * k)
+    if result:
+        return True
+    while k > 0:
+        k -= 1
+        _remove_index(indexes, i, 1)
+        result = _try_cubes(i - 1, n - x * k)
+        if result:
+            return True
+    return False
 
 
-def _build_cube(a: list, k:int, m: int):
-    for i in range(len(a)):
-        a[i]-=1
-    _heap=[collections.defaultdict(int) for _ in range(len(a))]
-    for x in a:
-        _heap[0][x]+=1
-    _cache=[0]*m
-    _cache[a[0]]=1
-    _heap[1][a[0]]+=1
-    _heap[0][a[0]]-=1
-    _max_range=1
-    ilen=1
-    l=0
-    for r in range(1, len(a)):
-        _cache[a[r]]+=1
-        _heap[_cache[a[r]]][a[r]]+=1
-        _heap[_cache[a[r]]-1][a[r]]=-1
-        if ilen<_cache[a[r]]:
-            ilen=_cache[a[r]]
-        imax=next(iter(_heap[ilen]))
-        while not _check_cache(_cache, imax, k) and l<r:
-            l+=1
-            _cache[a[l-1]]-=1
-            _heap[_cache[a[l-1]]][a[l-1]]=-1
-            _heap[_cache[a[l-1]]-1][a[l-1]]=+1
-            if _heap[ilen][a[l-1]]==0:
-                ilen = _cache[a[l]-1]
-                imax=_heap[ilen]
-        if r-l+1>_max_range:
-            _max_range=r-l+1
-    return _max_range
-
+def build_cubes(N: int):
+    global indexes
+    possible = _try_cubes(int(N ** (1 / 3)), N)
+    result = []
+    for x in indexes:
+        for i in range(indexes[x]):
+            result.append(x)
+    result.sort(reverse=True)
+    return "IMPOSSIBLE" if not possible else " ".join([str(i) for i in result])
 
 if __name__ == '__main__':
-        (n, m, k) = tuple([int(x) for x in input().rstrip().split()])
-        a = list([int(x) for x in input().rstrip().split()])
-
-        result = _build_cube(a, k, m)
-
-        print(result)
+    sys.setrecursionlimit(100000)
+    n = int(input().rstrip())
+    print(build_cubes(n))

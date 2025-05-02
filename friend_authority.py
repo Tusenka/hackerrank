@@ -32,7 +32,7 @@ def count_profit(a, profit, loose):
 
 
 if __name__ == '__main__':
-    (n, x) = tuple([int(x) for x in input().rstrip().split()])
+    (n, x) = tuple([int(x) for x in input().rstrip().split()]
     loose = []
     profit = []
     for i in range(n):
