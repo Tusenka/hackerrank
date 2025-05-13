@@ -1,7 +1,3 @@
-from collections import defaultdict
-from functools import cache
-from typing import DefaultDict
-
 M = 10 ** 9 + 7
 
 def _build_seq(a:list):
