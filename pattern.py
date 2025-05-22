@@ -2,8 +2,10 @@ from functools import cache, lru_cache
 
 _profiles11={}
 _profiles00={}
+
 def _build_profiles(N):
     global _profiles11
+    _profiles={ x: set() for x in [_bin_to_str(i, N) for i in range(2**N)] if '11' in x }
     _profiles11={ x: set() for x in [_bin_to_str(i, N) for i in range(2**N)] if '11' in x }
     _profiles00={ x: set() for x in [_bin_to_str(i, N) for i in range(2**N)] if '00' in x }
     for s in _profiles11:

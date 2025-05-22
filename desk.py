@@ -6,16 +6,24 @@ def _desk(c):
     c.sort()
     if len(c)==0:
         return 0
-    _dp=defaultdict(lambda:defaultdict(lambda:M))
+    _dp=[[(M, -1) for _ in range (len(c))] for _ in range(len(c)) ]
     for i in range(len(c)-1):
-        _dp[c[i]][c[i+1]]=0
-        _dp[c[i]][c[i]]=0
+        _dp[i][i+1] = (0, i+1)
+        _dp[i][i] = (0, i)
     for i in range(len(c)-1, -1, -1):
         for j in range(i+2, len(c)):
             l=c[i]
             r=c[j]
-            _dp[l][r]=min([_dp[l][c[k]]+_dp[c[k]][r] for k in range(i,j)])+r-l
-    return _dp[c[0]][c[-1]]
+            t1=_dp[i][j-1]
+            t2=_dp[i+1][j]
+            _min=M
+            _imin=i
+            for k in range(t1[1], t2[1]+1):
+                if _dp[i][k][0]+_dp[k][j][0]<_min:
+                    _imin=k
+                    _min=_dp[i][k][0]+_dp[k][j][0]
+            _dp[i][j]=(r-l+_min, _imin)
+    return _dp[0][-1][0]
 
 def desk(c, l):
     c0=[0]+c+[l]
