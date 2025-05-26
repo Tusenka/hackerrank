@@ -18,12 +18,11 @@ def _hamilton(adj):
 
     for i in range(1<<n):
         for j in range(n):
-            if(_check_bit(i,j)):
+            if _check_bit(i, j):
                 for k in range(n):
-                    if adj[j][k] and _check_bit(i,k) and _dp[i^(1<<j)][k]:
+                    if adj[j][k] and j!=k and _check_bit(i,k) and _dp[i^(1<<j)][k]:
                         _dp[i][j]=True
                         break
-
     return any(_dp[1<<n-1])
 
 
