@@ -1,0 +1,1 @@
+#https://acmp.ru/asp/do/index.asp?main=task&id_course=2&id_section=16&id_topic=22&id_problem=118
