@@ -8,7 +8,7 @@ def _find_next_max(a, j, sign):
     if j==len(a)-1 and a[-1]*sign>0:
         return -1, _max
     return j, _max
-
+#[()]
 def _find_first(a: list, t:int, i):
     while i<len(a) and a[i]>t:
         i+=1
