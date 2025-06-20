@@ -2,11 +2,8 @@
 import sys
 def _dfs( a0, a: list, visited: list, c: set):
     visited[a0]=True
-
     yield a0+1
-
     for a1 in a[a0]:
-
         if not visited[a1] and a1 not in c:
             yield from _dfs( a1 , a , visited, c)
 
