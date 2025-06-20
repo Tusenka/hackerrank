@@ -32,15 +32,15 @@ class State:
 
 def _bfs(x: State, y: State):
     d = {x: 0}
-    queue = [x]
+    queue = deque([x])
 
     while queue:
-        state:State=queue.pop(0)
+        state = queue.popleft()
         for step in state.swaps():
             if step not in d:
                 queue.append(step)
-                d[step]=d[state]+1
-                if step==y:
+                d[step] = d[state] + 1
+                if step == y:
                     return d[step]
 
     return -1
