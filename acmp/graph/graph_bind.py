@@ -1,6 +1,5 @@
 import sys
 
-
 def _dfs( a0 , a , visited , result = None ):
     if result is None :
         result = [ ]
