@@ -1,14 +1,10 @@
 def backpack(a, i, w, indexes=None):
-    if indexes is None:
-        indexes = set()
-    else:
-        indexes = indexes.copy()
+    indexes = set() if indexes is None else indexes.copy()
     if i == len(a) - 1:
-        if a[i][0]<=w:
-            indexes.add(a[i][2])
-            return a[i][1], indexes
-        else:
+        if a[i][0] > w:
             return 0, indexes
+        indexes.add(a[i][2])
+        return a[i][1], indexes
     if w <= 0:
         return 0, indexes
     if w < a[i][0]:
@@ -18,9 +14,8 @@ def backpack(a, i, w, indexes=None):
     take+=a[i][1]
     if skip>take:
         return skip, skip_indexes
-    else:
-       take_indexes.add(a[i][2])
-       return take, take_indexes
+    take_indexes.add(a[i][2])
+    return take, take_indexes
 
 
 if __name__ == '__main__':

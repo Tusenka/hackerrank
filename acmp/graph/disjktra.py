@@ -1,4 +1,5 @@
 #https://acmp.ru/asp/do/index.asp?main=task&id_course=2&id_section=16&id_topic=21&id_problem=110
+import heapq
 import sys
 
 M=10**9+7
@@ -12,13 +13,18 @@ def _imin(d: list, visited: list[bool]):
 def _solve(a0: int, a1:int, a: list[tuple]):
     d=[M]*len(a)
     d[a0]=0
+    _imins=[(0,a0)]
     visited=[False]*len(a)
-    for _ in range(n):
-        imin=_imin(d, visited)
+    while _imins:
+        imin=heapq.heappop(_imins)[1]
+        if visited[imin]:
+            continue
         visited[imin]=True
         for i, x in enumerate(a[imin]):
-            d[i] = min(d[i], d[imin]+x)
-    return d[a1]
+            if d[imin]+x<d[i]:
+               d[i] = d[imin]+x
+               heapq.heappush(_imins, (d[i],i))
+    return d[a1] if d[a1]!=M else -1
                 
 
 

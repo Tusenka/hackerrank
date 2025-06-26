@@ -26,10 +26,9 @@ def _mark_queue(queue, step, o, d):
 
 import itertools
 if __name__ == '__main__':
-    sys.setrecursionlimit(100009)
     p1, p2 = tuple(input().rstrip().split())
-    p1=(ord(p1[0])-ord('a'), int(p1[1]))
-    p2=(ord(p2[0])-ord('a'), int(p2[1]))
+    p1=(ord(p1[0])-ord('a'), int(p1[1])-1)
+    p2=(ord(p2[0])-ord('a'), int(p2[1])-1)
     d1=_bfs(p1)
     d2=_bfs(p2)
     _min=M
