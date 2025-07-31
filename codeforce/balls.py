@@ -1,8 +1,4 @@
 _dp={'000': []}
-def _set_bit(n, i):
-    b=1<<(i-1)*2
-    return n | b
-
 
 def _check(row: str):
     global _dp
