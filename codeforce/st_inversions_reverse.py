@@ -27,13 +27,12 @@ class TreeNode:
         self.left.load(i, (j + i) // 2)
         self.right.load((i + j) // 2 + 1, j)
 
-        self.val = self.right.val+self.left.val
+        self.val = self.right.val + self.left.val
 
     def _load_leaf(self, i):
         self.val = 1
         self.range = (i, i)
         self.is_leaf = True
-
 
     def _is_include(self, i):
         return self.range[0] <= i <= self.range[1]
@@ -51,9 +50,9 @@ class TreeNode:
     def build_reverse(self, a: tuple):
         res = [0] * len(a)
 
-        for i in range(len(a)-1, -1, -1):
-            j = self.get_k(a[i]+1)
-            res[i]=j
+        for i in range(len(a) - 1, -1, -1):
+            j = self.get_k(a[i] + 1)
+            res[i] = j
             self.update(j, 0)
 
         return res
@@ -62,12 +61,11 @@ class TreeNode:
         if self.is_leaf:
             return self.range[1]
 
-        if self.right.val<k:
-           return self.left.get_k(k-self.right.val)
+        if self.right.val < k:
+            return self.left.get_k(k - self.right.val)
 
-        if self.right.val>=k:
+        if self.right.val >= k:
             return self.right.get_k(k)
-
 
     def get(self, i, j):
         if self.is_leaf:
@@ -79,7 +77,9 @@ class TreeNode:
         intl = self.left if self.left.range[1] >= i else self.right
         intr = self.left if self.right.range[0] > j else self.right
 
-        return intl.get(i, j) if intl == intr else self.f(intl.get(i, j), intr.get(i, j))
+        return (
+            intl.get(i, j) if intl == intr else self.f(intl.get(i, j), intr.get(i, j))
+        )
 
     def update(self, i, v):
         if self.is_leaf:
@@ -108,5 +108,5 @@ n = int(input())
 
 a = tuple(int(x) for x in input().rstrip().split())
 tree = TreeNode(lambda x, y: x + y)
-tree.load(0, n-1)
-print(*[x+1 for x in tree.build_reverse(a)])
+tree.load(0, n - 1)
+print(*[x + 1 for x in tree.build_reverse(a)])

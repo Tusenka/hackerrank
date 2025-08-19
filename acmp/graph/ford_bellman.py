@@ -7,9 +7,11 @@ def ford_bellman(a: list):
     dp = [M] * len(a)
     dp[0] = 0
     p = [i for i in range(len(a))]
-    es = [(i, j, a[i][j]) for i, j in product(range(len(a)), range(len(a))) if a[i][j] < M]
+    es = [
+        (i, j, a[i][j]) for i, j in product(range(len(a)), range(len(a))) if a[i][j] < M
+    ]
 
-    for k in range(len(a)-1):
+    for k in range(len(a) - 1):
         for e in es:
             if dp[e[1]] > dp[e[0]] + e[2]:
                 dp[e[1]] = dp[e[0]] + e[2]
@@ -38,7 +40,7 @@ def find_circle(p, i):
 
     for j, x in enumerate(p):
         if x == i:
-            return [i]+p[:j+1]
+            return [i] + p[: j + 1]
 
     return []
 

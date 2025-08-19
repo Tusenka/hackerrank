@@ -1,5 +1,4 @@
-from functools import lru_cache
-
+# https://codeforces.com/contest/2074/problem/G
 
 def _triangle(a):
     _dp=[[ 0 for _ in range(len(a))] for _ in range(len(a))]

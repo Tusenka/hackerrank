@@ -1,4 +1,4 @@
-#https://acmp.ru/asp/do/index.asp?main=task&id_course=2&id_section=21&id_topic=51&id_problem=657
+# https://acmp.ru/asp/do/index.asp?main=task&id_course=2&id_section=21&id_topic=51&id_problem=657
 
 import dataclasses
 import itertools
@@ -6,29 +6,36 @@ import sys
 from collections import deque
 from copy import deepcopy
 
-M=10**9
+M = 10**9
+
+
 @dataclasses.dataclass
 class State:
-    x:tuple[int, int]
+    x: tuple[int, int]
     pos: list[list]
 
     def swaps(self):
-        steps=[]
-        i,j=self.x
-        if i<1: steps.append((i+1,j))
-        if j<3: steps.append((i,j+1))
-        if i>0: steps.append((i-1,j))
-        if j>0: steps.append((i,j-1))
+        steps = []
+        i, j = self.x
+        if i < 1:
+            steps.append((i + 1, j))
+        if j < 3:
+            steps.append((i, j + 1))
+        if i > 0:
+            steps.append((i - 1, j))
+        if j > 0:
+            steps.append((i, j - 1))
         for step in steps:
-            pos=deepcopy(self.pos)
-            pos[i][j], pos[step[0]][step[1]]=pos[step[0]][step[1]], pos[i][j]
+            pos = deepcopy(self.pos)
+            pos[i][j], pos[step[0]][step[1]] = pos[step[0]][step[1]], pos[i][j]
             yield State(x=step, pos=pos)
 
     def __eq__(self, other):
-        return self.__hash__()==other.__hash__()
+        return self.__hash__() == other.__hash__()
 
     def __hash__(self):
         return hash(tuple(tuple(i) for i in self.pos))
+
 
 def _bfs(x: State, y: State):
     d = {x: 0}
@@ -45,22 +52,23 @@ def _bfs(x: State, y: State):
 
     return -1
 
+
 def _get_state(a):
     for i, j in itertools.product(range(len(a)), range(len(a[0]))):
-        if a[i][j] == '#':
+        if a[i][j] == "#":
             return State((i, j), a)
+
 
 def _get_array():
     return list(input().rstrip())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.setrecursionlimit(100009)
     n, m = 2, 4
     a = [_get_array(), _get_array()]
     b = [_get_array(), _get_array()]
-    x=_get_state(a)
-    y=_get_state(b)
+    x = _get_state(a)
+    y = _get_state(b)
 
     print(_bfs(x, y))
-

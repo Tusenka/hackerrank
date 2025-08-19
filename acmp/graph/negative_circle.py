@@ -24,6 +24,30 @@ def floyd(a: list[list]):
     return dp, p
 
 
+def _asum(a: list[list]):
+    dp=deepcopy(a)
+    p=[[i for _ in range(len(a))] for i in range(len(a))]
+
+    for i in range(len(dp)):
+        for j in range(len(dp)):
+            for k in range(len(dp)):
+                if dp[i][k]<M and dp[k][j]<M:
+                    if dp[i][k]+dp[k][j]<dp[i][j]:
+                        p[i][j]=p[k][j]
+                        dp[i][j]=dp[i][k]+dp[k][j]
+
+    for i in range(len(dp)):
+        for j in range(len(dp)):
+            for k in range(len(dp)):
+                if dp[i][k]<M and dp[k][j]<M:
+                    if dp[i][k]+dp[k][j]<dp[i][j]:
+                        p[i][j]=p[k][j]
+                        dp[i][j]=dp[i][k]+dp[k][j]
+                        return dp, p
+    return dp, p
+
+
+
 def recovery_path(p,i,j):
     yield j+1
 

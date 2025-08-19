@@ -1,8 +1,10 @@
 import sys
 from functools import cache
 
-M = 10 ** 9 + 7
-indexes={}
+M = 10**9 + 7
+indexes = {}
+
+
 def _build_cubes(n: int):
     _cubes = {}
     i = 1
@@ -24,13 +26,14 @@ def _remove_index(indexes: dict, i, count: int = 1):
     if indexes[i] == 0:
         indexes.pop(i)
 
+
 @cache
 def _try_cubes(i: int, n: int):
     global indexes
     if indexes is None:
         indexes = {}
     if sum(indexes.values()) > 8:
-            return False
+        return False
     if sum(indexes.values()) == 8:
         return n == 0
     if n == 0:
@@ -65,7 +68,8 @@ def build_cubes(N: int):
     result.sort(reverse=True)
     return "IMPOSSIBLE" if not possible else " ".join([str(i) for i in result])
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     sys.setrecursionlimit(100000)
     n = int(input().rstrip())
     print(build_cubes(n))
