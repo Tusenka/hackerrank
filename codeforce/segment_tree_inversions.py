@@ -34,7 +34,6 @@ class TreeNode:
         self.range = (i, i)
         self.is_leaf = True
 
-
     def _is_include(self, i):
         return self.range[0] <= i <= self.range[1]
 
@@ -53,7 +52,7 @@ class TreeNode:
 
         self.update(a[0], 1)
         for i in range(1, len(a)):
-            res[i] = self.get(a[i], len(a)-1)
+            res[i] = self.get(a[i], len(a) - 1)
             self.update(a[i], 1)
 
         return res
@@ -64,9 +63,17 @@ class TreeNode:
             return self if self.val == k else None
 
         if k == 0:
-            return self.left.get_k(k) if self.left.val < self.right.val else self.right.get_k(k)
+            return (
+                self.left.get_k(k)
+                if self.left.val < self.right.val
+                else self.right.get_k(k)
+            )
         else:
-            return self.left.get_k(k) if self.left.val > self.right.val else self.right.get_k(k)
+            return (
+                self.left.get_k(k)
+                if self.left.val > self.right.val
+                else self.right.get_k(k)
+            )
 
     def get(self, i, j):
         if self.is_leaf:
@@ -78,7 +85,9 @@ class TreeNode:
         intl = self.left if self.left.range[1] >= i else self.right
         intr = self.left if self.right.range[0] > j else self.right
 
-        return intl.get(i, j) if intl == intr else self.f(intl.get(i, j), intr.get(i, j))
+        return (
+            intl.get(i, j) if intl == intr else self.f(intl.get(i, j), intr.get(i, j))
+        )
 
     def update(self, i, v):
         if self.is_leaf:
@@ -105,7 +114,7 @@ def _solve(a):
 
 n = int(input())
 
-a = tuple(int(x)-1 for x in input().rstrip().split())
+a = tuple(int(x) - 1 for x in input().rstrip().split())
 tree = TreeNode(lambda x, y: x + y)
 tree.load_empty(0, n)
 print(*tree.build_inversions(a))

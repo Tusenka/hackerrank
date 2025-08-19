@@ -1,4 +1,4 @@
-#https://codeforces.com/problemset/gymProblem/105244/C
+#https://informatics.msk.ru/mod/statements/view.php?id=35824&chapterid=3094#1
 
 import itertools
 M = 10**9 + 7

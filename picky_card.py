@@ -1,6 +1,7 @@
 import random
 
-def _get_median(a:tuple):
+
+def _get_median(a: tuple):
     return findMedian(list(a))
 
 
@@ -16,12 +17,14 @@ def partition(arr, l, r):
     arr[i], arr[r] = arr[r], arr[i]
     return i
 
+
 def _random_partition(arr, l, r):
     n = r - l + 1
     pivot = random.randint(0, n - 1)
     i = l + pivot
     arr[i], arr[r] = arr[r], arr[i]
     return partition(arr, l, r)
+
 
 def _median_utils(arr, l, r, k, a, b):
     if l <= r:
@@ -43,12 +46,14 @@ def _median_utils(arr, l, r, k, a, b):
         else:
             _median_utils(arr, partitionIndex + 1, r, k, a, b)
 
+
 def findMedian(arr):
     a = [-1]
     b = [-1]
     n = len(arr)
     _median_utils(arr, 0, n - 1, n // 2, a, b)
     return b[0]
+
 
 def _iterate(n):
     x = 2 ** (n)
@@ -58,23 +63,24 @@ def _iterate(n):
         yield s
 
 
-def _eval_median(a:tuple, x: int, i=0, j=None):
-    m=_get_median(a)
-    if abs(m)==abs(x):
+def _eval_median(a: tuple, x: int, i=0, j=None):
+    m = _get_median(a)
+    if abs(m) == abs(x):
         return "YES"
     for i in _iterate(len(a)):
-        a0=tuple([a[j] if i[j]=='0' else -a[j] for j in range(len(a))])
-        m=_get_median(a0)
-        if abs(m)==abs(x):
+        a0 = tuple([a[j] if i[j] == "0" else -a[j] for j in range(len(a))])
+        m = _get_median(a0)
+        if abs(m) == abs(x):
             return "YES"
     return "NO"
 
 
 def _eval(a, x=None):
-    x=a[0]
+    x = a[0]
     return _eval_median(a, x)
 
-t=int(input().rstrip())
+
+t = int(input().rstrip())
 for t_itr in range(t):
     (n) = tuple([int(x) for x in input().rstrip().split()])
     a = list([int(x) for x in input().rstrip().split()])

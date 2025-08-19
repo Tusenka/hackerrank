@@ -4,7 +4,7 @@ import math
 import os
 
 _dp = []
-MOD = 10 ** 8 + 7
+MOD = 10**8 + 7
 
 
 def _get_dp(n, m, i):
@@ -21,7 +21,7 @@ def _set_dp(n, m, i, value):
     if 2 * i > n:
         i = n
     global _dp
-    _dp[m][i]=value
+    _dp[m][i] = value
 
 
 def _next_letter(n, m, i=-1):
@@ -31,7 +31,10 @@ def _next_letter(n, m, i=-1):
     else:
         k = math.ceil(n / 2)
     if i == -1:
-        return sum([_next_letter(n, m, j) for j in range(n-k, n + 1)] ) % MOD + _next_letter(n, m, n)*k
+        return (
+            sum([_next_letter(n, m, j) for j in range(n - k, n + 1)]) % MOD
+            + _next_letter(n, m, n) * k
+        )
     if m <= 2:
         # print(f"Last letter could be only last half i {i} x{x}")
         if i * 2 > n:
@@ -49,7 +52,7 @@ def _next_letter(n, m, i=-1):
         for j in range(1, n - k + 1):
             # print(f"check letter j {j} for {i} which is in first_half x {x}")
             ans += _get_dp(n, m - 1, j) % MOD
-        _set_dp(n,m,i,ans)
+        _set_dp(n, m, i, ans)
         return ans
     else:
         ans = 0
@@ -57,12 +60,14 @@ def _next_letter(n, m, i=-1):
         for j in range(2 * i, n + 1):
             # print(f"check letter j {j} which is greater than {i} x {x}")
             ans += _get_dp(n, m - 1, j) % MOD
-        _set_dp(n,m,i,ans)
+        _set_dp(n, m, i, ans)
         return ans
 
+
 def pre_build_letters(n, m):
-    for i in range(2, m+1):
+    for i in range(2, m + 1):
         _next_letter(n, i, -1)
+
 
 def alienLanguages(n, m):
     global _dp
@@ -70,16 +75,21 @@ def alienLanguages(n, m):
     pre_build_letters(n, m)
     return sum([_get_dp(n, m, i) for i in range(1, n + 1)]) % MOD
     # Write your code here
-f=open("test.txt")
 
-if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'] if "OUTPUT_PATH" in os.environ else "test_result.log", 'w')
+
+f = open("test.txt")
+
+if __name__ == "__main__":
+    fptr = open(
+        os.environ["OUTPUT_PATH"] if "OUTPUT_PATH" in os.environ else "test_result.log",
+        "w",
+    )
 
     t = int(f.readline().strip())
 
     for t_itr in range(t):
-        ( n, m )= tuple([int(x) for x in f.readline().rstrip().split()])
-        result=alienLanguages(n, m)
+        (n, m) = tuple([int(x) for x in f.readline().rstrip().split()])
+        result = alienLanguages(n, m)
         print(result)
-        fptr.write(str(result) + '\n')
+        fptr.write(str(result) + "\n")
     fptr.close()

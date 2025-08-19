@@ -26,7 +26,7 @@ class TreeNode:
         self.left.load(i, (j + i) // 2)
         self.right.load((i + j) // 2 + 1, j)
 
-        self.val = self.right.val+self.left.val
+        self.val = self.right.val + self.left.val
 
     def _load_leaf(self, i):
         self.val = 0
@@ -49,26 +49,24 @@ class TreeNode:
     def build_reverse(self, a: tuple):
         res = [0] * len(a)
 
-        for i in range(len(a)-1, -1, -1):
-            j = self.get_k(a[i]+1)
-            res[i]=j
+        for i in range(len(a) - 1, -1, -1):
+            j = self.get_k(a[i] + 1)
+            res[i] = j
             self.update(j, 0)
 
         return res
 
-
-    def get_val(self, i:int)->int:
+    def get_val(self, i: int) -> int:
         if self.is_leaf:
             return self.val
 
         if self.left._is_include(i):
-            return self.left.get_val(i)+self.val
+            return self.left.get_val(i) + self.val
 
         if self.right._is_include(i):
-            return self.right.get_val(i)+self.val
+            return self.right.get_val(i) + self.val
 
         return 0
-
 
     def get(self, i, j):
         if self.is_leaf:
@@ -80,13 +78,15 @@ class TreeNode:
         intl = self.left if self.left.range[1] >= i else self.right
         intr = self.left if self.right.range[0] > j else self.right
 
-        return intl.get(i, j) if intl == intr else self.f(intl.get(i, j), intr.get(i, j))
+        return (
+            intl.get(i, j) if intl == intr else self.f(intl.get(i, j), intr.get(i, j))
+        )
 
     def add(self, i, j, v):
         if self.is_leaf and not self._is_intersect(i, j):
             return
         if self._is_intersect(i, j):
-            self.val+=v
+            self.val += v
             return
 
         if self.left._is_include(i) or self.left._is_include(j):
@@ -96,7 +96,7 @@ class TreeNode:
             self.right.add(i, j, v)
 
     def _is_intersect(self, i, j):
-        if  i <= self.range[1] and j <= self.range[1]:
+        if i <= self.range[1] and j <= self.range[1]:
             return True
         else:
             return False
@@ -124,14 +124,14 @@ def _solve(a):
     pass
 
 
-n, m =tuple(int(x) for x in input().rstrip().split())
+n, m = tuple(int(x) for x in input().rstrip().split())
 
 a = tuple(int(x) for x in input().rstrip().split())
 tree = TreeNode(lambda x, y: x + y)
-tree.load(0, n-1)
+tree.load(0, n - 1)
 for _ in range(m):
     o = tuple(int(x) for x in input().rstrip().split())
-    if o[0]==1:
+    if o[0] == 1:
         tree.add(o[2], o[3], o[1])
     else:
         print(tree.get_val(o[1]))
