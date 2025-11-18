@@ -2,7 +2,7 @@
 import heapq
 from collections import deque
 
-M = 10 ** 9 + 7
+M = 10**9 + 7
 L = 55
 
 
@@ -28,7 +28,7 @@ def _solve(x: int, y: int):
     return ans
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     n = int(input().rstrip())
 
     for _ in range(n):

@@ -1,8 +1,9 @@
 # https://codeforces.com/contest/2128/problem/A
 
+
 def get_middle(a: list, c: int, visited, m=1):
     for i, x in enumerate(a):
-        if visited[max(i-1,0)]:
+        if visited[max(i - 1, 0)]:
             continue
         if x * m > c:
             return max(i - 1, 0)

@@ -42,13 +42,19 @@ def _solve(p: list, colors: list):
 
         if colors[x] == 1:
             dp[x][0] = 0
-            dp[x][1] = reduce(lambda x, y: x * y, [max(dp[c][0], 1) for c in childs[x]], 1)
+            dp[x][1] = reduce(
+                lambda x, y: x * y, [max(dp[c][0], 1) for c in childs[x]], 1
+            )
 
         else:
             dp[x][0] = reduce(lambda x, y: x * y, [dp[c][0] for c in childs[x]], 1)
             dp[x][1] = 0
             for bc in childs[x]:
-                dp[x][1] += dp[bc][1] * reduce(lambda x, y: x * y, [max(dp[c][0], 1) for c in childs[x] if c != bc], 1)
+                dp[x][1] += dp[bc][1] * reduce(
+                    lambda x, y: x * y,
+                    [max(dp[c][0], 1) for c in childs[x] if c != bc],
+                    1,
+                )
 
     return dp[0][1]
 
