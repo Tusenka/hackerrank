@@ -62,35 +62,37 @@ class TreeNode:
         intl = self.left if self.left.range[1] >= i else self.right
         intr = self.left if self.right.range[0] > j else self.right
 
-        return intl.get(i, j) if intl == intr else self.f(intl.get(i, j), intr.get(i, j))
+        return (
+            intl.get(i, j) if intl == intr else self.f(intl.get(i, j), intr.get(i, j))
+        )
 
 
 def _solve(tree, a, m):
     b = [1 if x > m else -1 if x < m else 0 for x in a]
     btree = TreeNode(f=lambda x, y: x + y)
     btree.load(b)
-    _max=0
+    _max = 0
     for i in range(len(a)):
-        for j in range(i+1, len(a)):
-            if btree.get(i,j) in (0, -1):
-                _min=tree.get(i,j)
-                if m-_min>_max:
-                    _max=m-_min
+        for j in range(i + 1, len(a)):
+            if btree.get(i, j) in (0, -1):
+                _min = tree.get(i, j)
+                if m - _min > _max:
+                    _max = m - _min
     return _max
 
-t=int(input())
+
+t = int(input())
 
 for i in range(t):
-    n=int(input())
+    n = int(input())
     a = tuple(int(x) for x in input().rstrip().split())
-    tree = TreeNode(f=lambda x, y: min(x,y))
+    tree = TreeNode(f=lambda x, y: min(x, y))
     tree.load(a)
-    val=0
-    visited=[False]*100
+    val = 0
+    visited = [False] * 100
     for m in a:
         if visited[m]:
             continue
         visited[m] = True
         val = max(val, _solve(tree, a, m))
     print(val)
-

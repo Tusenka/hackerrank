@@ -18,16 +18,16 @@ def mex(a, b, c):
 
 
 def try_mex(a, i):
-    x = len([1 for x in a[i:i + 3] if x == M])
+    x = len([1 for x in a[i : i + 3] if x == M])
 
     if x >= 3:
         return True
 
     if x == 2:
-        return 0 in a[i:i + 2]
+        return 0 in a[i : i + 2]
 
-    _min = min(a[i:i + 3])
-    _max = max([x for x in a[i:i + 3] if x != M])
+    _min = min(a[i : i + 3])
+    _max = max([x for x in a[i : i + 3] if x != M])
 
     if x == 1:
         diff = mex(a[i], a[i + 1], a[i + 2])
@@ -53,5 +53,5 @@ def solve(a):
 
 for _ in range(t):
     _ = int(input().rstrip())
-    a = list(int(x) if x!='-1' else M for x in input().rstrip().split())
+    a = list(int(x) if x != "-1" else M for x in input().rstrip().split())
     print("YES" if solve(a) else "NO")

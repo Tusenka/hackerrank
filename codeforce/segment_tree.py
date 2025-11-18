@@ -13,7 +13,7 @@ class TreeNode:
     right: TreeNode | None = None
     is_leaf = False
 
-    def load(self, a, i = 0, j = -1):
+    def load(self, a, i=0, j=-1):
         j = j if j >= 0 else len(a) - 1
         self.range = (i, j)
 
@@ -54,7 +54,9 @@ class TreeNode:
         intl = self.left if self.left.range[1] >= i else self.right
         intr = self.left if self.right.range[0] > j else self.right
 
-        return intl.get(i, j) if intl == intr else self.f(intl.get(i, j), intr.get(i, j))
+        return (
+            intl.get(i, j) if intl == intr else self.f(intl.get(i, j), intr.get(i, j))
+        )
 
     def update(self, i, v):
         if self.is_leaf:

@@ -1,11 +1,12 @@
 # https://acmp.ru/asp/do/index.asp?main=task&id_course=2&id_section=32&id_topic=55&id_problem=1045
 
+
 def conv(i, j):
     return i * 100 + j
 
 
 def deconv(x):
-    return x // 100+1, x % 100+1
+    return x // 100 + 1, x % 100 + 1
 
 
 def _get_p(p: list, i):
@@ -48,23 +49,23 @@ for i in range(n):
 
     for j in range(m):
         if a[j] == 0:
-            if i<n-1:
+            if i < n - 1:
                 edges.append((1, conv(i, j), conv(i + 1, j)))
-            if j<m-1:
+            if j < m - 1:
                 edges.append((2, conv(i, j), conv(i, j + 1)))
         if a[j] == 1:
             edges.append((0, conv(i, j), conv(i + 1, j)))
             if j < m - 1:
                 edges.append((2, conv(i, j), conv(i, j + 1)))
         if a[j] == 2:
-            if i<n-1:
+            if i < n - 1:
                 edges.append((1, conv(i, j), conv(i + 1, j)))
             edges.append((0, conv(i, j), conv(i, j + 1)))
         if a[j] == 3:
             edges.append((0, conv(i, j), conv(i + 1, j)))
             edges.append((0, conv(i, j), conv(i, j + 1)))
 
-ans=_kraskal(n=100 * 100, edges=edges)
+ans = _kraskal(n=100 * 100, edges=edges)
 print(ans[0], ans[1])
 
 for x in ans[2]:

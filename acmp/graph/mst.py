@@ -3,7 +3,7 @@ import heapq
 
 D = 20000
 
-M = 10 ** 9 + 7
+M = 10**9 + 7
 
 
 def _prieme(n: int, a: list):
@@ -97,7 +97,7 @@ def _kraskal2(n: int, _imins: list):
     return _ans
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     n, m = tuple(int(x) for x in input().rstrip().split())
     aa = [()] * m
 

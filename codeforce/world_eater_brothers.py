@@ -3,7 +3,7 @@ import heapq
 from collections import deque
 
 D = 20000
-M = 10 ** 9 + 7
+M = 10**9 + 7
 
 
 def _get_capitals(a: list):
@@ -28,7 +28,11 @@ def _get_capitals(a: list):
             continue
 
         visited.add(x)
-        dp[x[2]] = dp[x[1]] - 1 if x[0] == 1 else dp[x[1]] if am[x[2]][x[1]] == am[x[1]][x[2]] == 0 else dp[x[1]] + 1
+        dp[x[2]] = (
+            dp[x[1]] - 1
+            if x[0] == 1
+            else dp[x[1]] if am[x[2]][x[1]] == am[x[1]][x[2]] == 0 else dp[x[1]] + 1
+        )
 
         for i in a[x[2]]:
             q.append((i[0], x[2], i[1]))
@@ -61,7 +65,7 @@ def _ford_bellman(a: list):
     return sum(dp)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     n = int(input().rstrip())
     aa = [set() for _ in range(n)]
 
