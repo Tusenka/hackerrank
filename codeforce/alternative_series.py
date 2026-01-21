@@ -11,7 +11,6 @@ def solve(a: dict, b: dict, k: int) -> bool:
                 b[y] -= 1
                 break
         else:
-
             return False
 
     return True

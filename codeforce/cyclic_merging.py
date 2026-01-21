@@ -1,14 +1,16 @@
-#https://codeforces.com/contest/2165/problem/A
-M=10**9
-def solve(a:list):
-    l = len(a)
-    res=0
-    _d=set()
+# https://codeforces.com/contest/2165/problem/A
+M = 10**9
 
-    for i in range(l-1):
-        res+=max(a[i], a[i+1])
-    res+=max(a[0], a[-1])
-    res-=max(a)
+
+def solve(a: list):
+    l = len(a)
+    res = 0
+    _d = set()
+
+    for i in range(l - 1):
+        res += max(a[i], a[i + 1])
+    res += max(a[0], a[-1])
+    res -= max(a)
     # while l:
     #     l-=1
     #     imin=am[-l-1][1]
@@ -21,12 +23,11 @@ def solve(a:list):
     #     for x in _d:
     #         a[x]=_min
 
-
     return res
 
 
-t=int(input())
+t = int(input())
 for _ in range(t):
-    _=int(input())
-    a=list(map(int,input().split()))
+    _ = int(input())
+    a = list(map(int, input().split()))
     print(solve(a))

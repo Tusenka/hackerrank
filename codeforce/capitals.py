@@ -31,7 +31,9 @@ def _get_capitals(a: list):
         dp[x[2]] = (
             dp[x[1]] - 1
             if x[0] == 1
-            else dp[x[1]] if am[x[2]][x[1]] == am[x[1]][x[2]] == 0 else dp[x[1]] + 1
+            else dp[x[1]]
+            if am[x[2]][x[1]] == am[x[1]][x[2]] == 0
+            else dp[x[1]] + 1
         )
 
         for i in a[x[2]]:

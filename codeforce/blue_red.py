@@ -1,5 +1,4 @@
 def solve(n, a, b):
-
     if b % 2 != n % 2:
         return False
     if b >= a:

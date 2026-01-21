@@ -1,18 +1,21 @@
-#https://codeforces.com/group/sNzo7JKQN1/contest/527247/problem/F?locale=ru
-M=10**9
+# https://codeforces.com/group/sNzo7JKQN1/contest/527247/problem/F?locale=ru
+M = 10**9
+
 
 def solve(a: list):
     pass
 
-def floyd(a:list):
+
+def floyd(a: list):
     for i in range(len(a)):
         for j in range(len(a[0])):
             for k in range(len(a[0])):
-                a[i][j]=min(a[i][j], a[i][k]+a[k][j])
+                a[i][j] = min(a[i][j], a[i][k] + a[k][j])
 
     return max(max(a))
 
-def dfs(a:list, i=0, visited=None, res=None):
+
+def dfs(a: list, i=0, visited=None, res=None):
     if res is None:
         res = []
     if visited is None:
@@ -28,32 +31,32 @@ def dfs(a:list, i=0, visited=None, res=None):
 
 
 def _cost(c: list, order: list):
-    res=0
-    for i in range(len(order)-1):
-        res+=c[order[i]][order[i+1]]
-    return res+c[order[-1]][order[0]]
+    res = 0
+    for i in range(len(order) - 1):
+        res += c[order[i]][order[i + 1]]
+    return res + c[order[-1]][order[0]]
 
-def ring(c:list, r: list):
-    order=dfs(r)
+
+def ring(c: list, r: list):
+    order = dfs(r)
     return min(_cost(c, order), _cost(c, list(reversed(order))))
 
 
+n = int(input())
 
-n=int(input())
+a = [[M for _ in range(n)] for _ in range(n)]
 
-a=[[M for _ in range(n)] for _ in range(n)]
-
-c=[[0 for _ in range(n)] for _ in range(n)]
-r=[set() for _ in range(n)]
+c = [[0 for _ in range(n)] for _ in range(n)]
+r = [set() for _ in range(n)]
 
 for _ in range(n):
-    i, j, cij=tuple(map(int, input().split()))
-    a[i-1][j-1]=0
-    a[j-1][i-1]=cij
+    i, j, cij = tuple(map(int, input().split()))
+    a[i - 1][j - 1] = 0
+    a[j - 1][i - 1] = cij
 
-    c[j-1][i-1]=cij
-    r[i-1].add(j-1)
-    r[j-1].add(i-1)
+    c[j - 1][i - 1] = cij
+    r[i - 1].add(j - 1)
+    r[j - 1].add(i - 1)
 
 print(ring(c, r))
 # print(floyd(a))

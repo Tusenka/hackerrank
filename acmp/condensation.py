@@ -30,25 +30,25 @@ def sort(at: list) -> list[int]:
 def solve(a: list, at: list) -> tuple[int, list[int]]:
     touts = sort(at)
 
-    result=[-1] * len(a)
-    ii=1
+    result = [-1] * len(a)
+    ii = 1
 
     for i in touts:
-        if result[i]>=0:
+        if result[i] >= 0:
             continue
-        res=dfs(i=i, a=a)
+        res = dfs(i=i, a=a)
 
         for j in res:
-            if result[j]>=0:
+            if result[j] >= 0:
                 continue
-            result[j]=ii
+            result[j] = ii
 
-        ii+=1
+        ii += 1
 
     for i in range(len(result)):
-        result[i]=ii-result[i]
+        result[i] = ii - result[i]
 
-    return ii-1, result
+    return ii - 1, result
 
 
 n, m = tuple(map(int, input().rstrip().split()))
@@ -58,8 +58,8 @@ at = [set() for _ in range(n)]
 
 for _ in range(m):
     i, j = list(map(int, input().rstrip().split()))
-    a[i-1].add(j - 1)
-    at[j-1].add(i-1)
+    a[i - 1].add(j - 1)
+    at[j - 1].add(i - 1)
 
 res = solve(a=a, at=at)
 

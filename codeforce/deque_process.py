@@ -2,7 +2,6 @@
 
 
 def solve(p: list, q: list, res: list, l=0, r=-1, i=0, sign=0, longest=0):
-
     assert i < 2 or q[i - 1] != q[i - 2]
     longest, sign = get_longest(i, longest, q, sign)
 
