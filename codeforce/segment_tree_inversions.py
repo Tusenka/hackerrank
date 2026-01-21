@@ -58,7 +58,6 @@ class TreeNode:
         return res
 
     def get_k(self, k: int):
-
         if self.is_leaf:
             return self if self.val == k else None
 

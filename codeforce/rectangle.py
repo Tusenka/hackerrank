@@ -1,6 +1,5 @@
 # https://codeforces.com/contest/2120/problem/A
 def _solve(a, b, c):
-
     if a[1] == b[1] == c[1]:
         return a[0] + b[0] + b[0] == c[1]
     if a[0] == b[0] == c[0]:

@@ -8,7 +8,6 @@ def _check_bit(i, n):
 
 
 def _check_square(i, j, k, jj):
-
     if _check_bit(i, jj + 1) or _check_bit(j, jj + 1) or _check_bit(k, jj + 1):
         return True
 
@@ -42,7 +41,6 @@ def _spiders(n, m):
             for j in range(2**n):
                 _max = -1
                 for k in range(2**n):
-
                     if _is_possible(i << 1, j << 1, k << 1, n + 2):
                         print(i << 1, j << 1, k << 1, n + 2)
                         if _max < _dp2[j][k]:

@@ -1,8 +1,9 @@
-def solve(x,n):
-    if n%2==0:
+def solve(x, n):
+    if n % 2 == 0:
         return 0
     else:
         return x
+
 
 t = int(input().rstrip())
 

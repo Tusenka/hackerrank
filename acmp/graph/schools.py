@@ -23,7 +23,6 @@ def _kraskal(n: int, _imins: list, ignore=(-1, -1)):
     _imins.sort()
 
     for i, x in enumerate(_imins):
-
         if x == ignore:
             continue
 
