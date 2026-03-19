@@ -62,6 +62,7 @@ def get_value(res: list[int], val, idx: int = 0, begin=0, end=-1):
     else:
         return get_value(res, val - res[idx * 2 + 1], idx * 2 + 2, m + 1, end)
 
+
 if __name__ == "__main__":
     _ = input().strip()
 
@@ -77,5 +78,3 @@ if __name__ == "__main__":
             ans.append(get_value(res=res, val=int(c[1])))
 
     print(*ans)
-
-
