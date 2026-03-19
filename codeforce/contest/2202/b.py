@@ -1,9 +1,10 @@
 def solve():
     pass
 
-t=int(input())
+
+t = int(input())
 
 for _ in range(t):
-    x,y=tuple(map(int, input().split()))
+    x, y = tuple(map(int, input().split()))
 
-    print("YES" if solve(x,y) else "NO")
+    print("YES" if solve(x, y) else "NO")

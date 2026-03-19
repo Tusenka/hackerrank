@@ -9,7 +9,6 @@ M = 10**9
 sys.setrecursionlimit(10**6)
 
 
-
 def load(a: list, i=0, begin=0, end=-1, result: list[int] | None = None):
     n = (len(a)) * 4
     end = len(a) - 1 if end == -1 else end
@@ -64,21 +63,26 @@ def _get_value(res: list[int], val, idx: int, begin, end):
 
 
 def get_value(res: list[int], val, begin, end):
-    val = val + _get_value_count(res=res, i=begin-1, idx=0, begin=0, end=len(res) // 4 - 1) if begin > 0 else val
+    val = (
+        val
+        + _get_value_count(res=res, i=begin - 1, idx=0, begin=0, end=len(res) // 4 - 1)
+        if begin > 0
+        else val
+    )
 
     if val <= 0:
         return -1
 
-    ans=_get_value(res, val, idx=0, begin=0,end=(len(res)//4-1))
+    ans = _get_value(res, val, idx=0, begin=0, end=(len(res) // 4 - 1))
 
-    return ans if begin<=ans-1<=end else -1
+    return ans if begin <= ans - 1 <= end else -1
 
 
 def _get_value_count(res: list[int], i, idx, begin, end):
-    if begin>i:
+    if begin > i:
         return 0
 
-    if  end <= i:
+    if end <= i:
         return res[idx]
 
     m = (begin + end) // 2
