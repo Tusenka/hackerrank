@@ -1,8 +1,13 @@
+
+def _abs(x: int):
+    return -x if x<0 else x
+
+
 def solve(a: list):
     dp=[[0 for _ in range(2)] for _ in range(len(a))]
 
-    dp[-1][0]=abs(a[-2]-a[-1])
-    dp[-1][1]=3*abs(a[-3]-a[-1])
+    dp[-1][0]=_abs(a[-2]-a[-1])
+    dp[-1][1]=3*_abs(a[-3]-a[-1])
 
     for i in range(len(a)-2, 0, -1):
         x=dp[i+1][0]
@@ -10,14 +15,14 @@ def solve(a: list):
         if i+2<len(a)-1:
             x=min(x, dp[i+2][1])
 
-        dp[i][0]=x+abs(a[i-1]-a[i])
+        dp[i][0]=x+_abs(a[i-1]-a[i])
         if i>1:
-            dp[i][1]=x+3*abs(a[i-2]-a[i])
+            dp[i][1]=x+3*_abs(a[i-2]-a[i])
 
     return min(dp[1][0], dp[2][1])
 
 
-t = int(input())
+t = int(input().strip())
 
-a = list(map(int, input().split()))
+a = list(map(int, input().strip().split()))
 print(solve(a=a))
