@@ -4,6 +4,13 @@ def _abs(x: int):
 
 
 def solve(a: list):
+    if len(a)==1:
+       return 0
+
+    if len(a)==2:
+        return abs(a[1]-a[0])
+
+
     dp=[[0 for _ in range(2)] for _ in range(len(a))]
 
     dp[-1][0]=_abs(a[-2]-a[-1])
@@ -16,6 +23,7 @@ def solve(a: list):
             x=min(x, dp[i+2][1])
 
         dp[i][0]=x+_abs(a[i-1]-a[i])
+
         if i>1:
             dp[i][1]=x+3*_abs(a[i-2]-a[i])
 
