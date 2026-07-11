@@ -6,7 +6,6 @@ def solve(a: list[int]):
     dp[-2]=1
     dp[-3]=0 if a[-2]==1 else 2
 
-    #2 1 1 8 3 1 1 1
     for i in range(len(a)-3, -1, -1):
         dp[i]=min(dp[i+1]+1, dp[a[i]+i+1] if a[i]+i+1<=len(a) else len(a)-i+1)
 
@@ -15,7 +14,7 @@ def solve(a: list[int]):
 t=int(input())
 
 for _ in range(t):
-    input()
+    x,y=tuple(map(int,input().split()))
     a=list(map(int, input().split()))
 
     print(solve(a=a))

@@ -1,6 +1,3 @@
-from collections import defaultdict
-
-
 def bin_search(end, f):
     start = 0
     while start < end:

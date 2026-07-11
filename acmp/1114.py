@@ -46,14 +46,6 @@ def solve(n, a0, k, b, m):
         i=prev[i]
 
 
-# dp[i][j]=min(dp[i][j-1] - bool(b[j-1] in c), dp[i-1][j]-bool(a[i-1] in c))
-
-# dp[0][0]=len(c)
-# dp[0][1]=dp[0][0]-bool(b[0] in c)
-# dp[1][0]=dp[0][0]-bool(a[0] in c)
-
-# for i,j in
-
 n, a0, k, b, m=tuple(map(int, input().split()))
 
 
