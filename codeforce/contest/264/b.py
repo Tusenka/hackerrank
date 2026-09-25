@@ -10,7 +10,7 @@ def solve(a: list[int]):
         j=2
         dp[x]+=1
         while j*j<=x:
-            if x%j==0:
+            if x%j==1:
                if dp[x//j]>dp[j]:
                    dp[x]=max(dp[x], dp[x//j]+1)
                else:
